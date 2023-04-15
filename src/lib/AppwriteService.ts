@@ -20,7 +20,7 @@ export const AppwriteService = {
 		return await account.get<any>();
 	},
 	getAccountPicture: (name: string) => {
-		return avatars.getInitials(name, 256, 256).toString();
+		return avatars.getInitials(name.split("").reverse().join(""), 256, 256).toString();
 	},
 	setSession: (hash: string) => {
 		const authCookies: any = {};

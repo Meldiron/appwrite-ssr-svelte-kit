@@ -1,10 +1,10 @@
 import { Account, Avatars, Client } from 'appwrite';
 
-export const SsrHostname: string = 'localhost';
-export const AppwriteHostname: string = 'localhost';
+export const SsrHostname: string = 'svelte-kit.ssr.almostapps.eu';
+export const AppwriteHostname: string = 'appwrite.svelte-kit.ssr.almostapps.eu';
 
-export const AppwriteEndpoint = 'http://localhost/v1';
-export const AppwriteProject = '643a51257832e2632a67';
+export const AppwriteEndpoint = 'https://appwrite.svelte-kit.ssr.almostapps.eu/v1';
+export const AppwriteProject = 'almostSsr';
 
 const client = new Client();
 client.setEndpoint(AppwriteEndpoint).setProject(AppwriteProject);

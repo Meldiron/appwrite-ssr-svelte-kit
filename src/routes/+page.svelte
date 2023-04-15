@@ -98,7 +98,7 @@
 							This component is not aware of auth status.
 						</p>
 					</div>
-					<div class="u-flex u-gap-16 u-main-center">
+					<div class="u-flex u-gap-16 u-main-center u-flex-vertical-mobile u-cross-center">
 						{#if isLoading}
 							<div class="loader" />
 						{:else}

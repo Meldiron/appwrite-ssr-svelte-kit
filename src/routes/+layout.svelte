@@ -1,47 +1,100 @@
 <script lang="ts">
+	import '../app.css';
 	import '@appwrite.io/pink';
 	import '@appwrite.io/pink-icons';
+
+	let isDark = true;
+	let isMenuOpened: null | boolean = null;
+
+	function toggleTheme() {
+		if (isDark) {
+			document.body.classList.remove('theme-dark');
+		} else {
+			document.body.classList.add('theme-dark');
+		}
+
+		isDark = document.body.classList.contains('theme-dark');
+	}
+
+	function toggleMenu() {
+		if (isMenuOpened === null) {
+			isMenuOpened = true;
+		} else {
+			isMenuOpened = !isMenuOpened;
+		}
+	}
 </script>
 
 <div class="grid-with-side">
-	<header class="main-header u-padding-inline-end-0 astro-6RXD34BR">
+	<header class="main-header u-padding-inline-end-0">
 		<button
-			class="button is-text is-only-icon is-not-desktop nav-btn astro-6RXD34BR"
+			on:click={toggleMenu}
+			class="button is-text is-only-icon is-not-desktop nav-btn"
 			aria-label="Open Menu"
 		>
-			<span aria-hidden="true" class="icon-menu astro-6RXD34BR" />
+			<span aria-hidden="true" class="icon-menu" />
 		</button>
-		<a class="logo astro-6RXD34BR" href="/">
-			<h6 class="heading-level-6">Almost SSR</h6>
+		<a class="logo" href="/">
+			<img src="/logo.svg" alt="Logo" />
 		</a>
-		<div class="main-header-end u-margin-inline-end-16 astro-6RXD34BR">
-			<ul class="buttons-list is-with-padding astro-6RXD34BR">
-				<li class="buttons-list-item astro-6RXD34BR">
-					<button class="button is-secondary">
-						<span class="text">Secondary</span>
-					</button>
+		<div class="main-header-end u-margin-inline-end-16">
+			<ul class="buttons-list is-with-padding">
+				<li class="buttons-list-item">
+					<a
+						href="https://github.com/MatusFercak/appwrite-ssr-svelte-kit"
+						target="_blank"
+						class="button is-secondary is-not-mobile"
+					>
+						<span class="text">View on GitHub</span>
+					</a>
+					<a
+						href="https://github.com/Meldironn/appwrite-ssr-svelte-kit"
+						target="_blank"
+						class="button is-secondary is-only-mobile"
+					>
+						<svg
+							width="16"
+							height="16"
+							role="img"
+							viewBox="0 0 24 24"
+							xmlns="http://www.w3.org/2000/svg"
+							><title>GitHub</title><path
+								d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+								fill="currentColor"
+							/></svg
+						>
+					</a>
 				</li>
-				<li class="buttons-list-item u-padding-inline-0 astro-6RXD34BR">
+				<li class="buttons-list-item u-padding-inline-0">
 					<div>
-						<div>
-							<button class="button is-only-icon is-text" aria-label="Replace to Dark Mode Theme">
-								<span class="icon-sun" aria-hidden="true" />
+						{#if isDark}
+							<div>
+								<button
+									on:click={toggleTheme}
+									class="button is-only-icon is-text"
+									aria-label="Replace to Dark Mode Theme"
+								>
+									<span class="icon-sun" aria-hidden="true" />
+								</button>
+							</div>
+						{:else}
+							<button
+								on:click={toggleTheme}
+								class="button is-only-icon is-text"
+								aria-label="Replace to Light Mode Theme"
+							>
+								<span class="icon-moon" aria-hidden="true" />
 							</button>
-						</div>
-						<!-- <div>
-						<button class="button is-only-icon is-text" aria-label="Replace to Light Mode Theme">
-							<span class="icon-moon" aria-hidden="true" />
-						</button>
-					</div>
-					<button class="button is-only-icon is-text" aria-label="Replace to Light Mode Theme">
-						<span class="icon-moon" aria-hidden="true" />
-					</button> -->
+						{/if}
 					</div>
 				</li>
 			</ul>
 		</div>
 	</header>
-	<aside class="main-side">
+	<aside
+		class="main-side"
+		style:display={isMenuOpened === null ? undefined : isMenuOpened ? 'block' : 'none'}
+	>
 		<div class="side-nav">
 			<div class="side-nav-main">
 				<section class="drop-section">
@@ -104,17 +157,62 @@
 						</li>
 						<li class="drop-list-item">
 							<a class="drop-button" href="">
-								<svg role="img" width="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-									><title>Analogue</title><path
-										d="M5.468 12.804a5.145 5.145 0 10-.644 10.27 5.145 5.145 0 00.644-10.27zm17.841 2.562L16.45 3.484a5.146 5.146 0 00-8.912 5.15l6.86 11.878a5.148 5.148 0 007.031 1.885 5.146 5.146 0 001.881-7.031z"
+								<svg width="16" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+									><title>Angular</title><path
+										d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 24l9.596-5.242L23.32 3.984 11.999.001zm7.064 18.31h-2.638l-1.422-3.503H8.996l-1.422 3.504h-2.64L12 2.65z"
 										fill="currentColor"
 									/></svg
 								>
-								<span class="text">Analogue</span>
+								<span class="text">Analog</span>
 							</a>
 						</li>
 					</ul>
 				</section>
+				<div style="border-top: 1px solid hsl(var(--color-border)); padding: 1rem">
+					<div class="u-flex u-cross-center u-flex-vertical u-gap-8">
+						<p>
+							Made with <span
+								style="color: hsl(var(
+							--color-primary-200))">❤️</span
+							> by
+						</p>
+
+						<div>
+							<ul class="avatars-group">
+								<li class="avatars-group-item">
+									<a
+										href="https://github.com/matusfercak"
+										target="_blank"
+										class="avatar is-size-small is-color-blue"
+									>
+										<img
+											style="border-radius: 50%;"
+											src="/matus.webp"
+											width="36"
+											height="36"
+											alt="Author"
+										/>
+									</a>
+								</li>
+								<li class="avatars-group-item">
+									<a
+										href="https://github.com/meldiron"
+										target="_blank"
+										class="avatar is-size-small is-color-blue"
+									>
+										<img
+											style="border-radius: 50%;"
+											src="/matej.webp"
+											width="36"
+											height="36"
+											alt="Author"
+										/>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</aside>

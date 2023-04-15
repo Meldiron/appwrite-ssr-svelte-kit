@@ -1,0 +1,58 @@
+.gradient-border {
+	border-radius: var(--card-border-radius, var(--border-radius-medium));
+	padding: 0.0625rem;
+	background-color: hsl(var(--color-border));
+	background: linear-gradient(
+		180deg,
+		hsl(var(--color-border)) 0%,
+		hsl(var(--p-body-bg-color)) 100%
+	);
+}
+
+.theme-dark .card-is-failed {
+	box-shadow: 0 1px 1px hsl(var(--color-danger-200)), 0 0 0 hsl(var(--color-danger-200)),
+		inset 0 0.5px 0 0.5px hsl(var(--color-danger-120)),
+		inset 0 -3px 0 -2px hsl(var(--color-danger-120)), 0 0 15px hsl(var(--color-danger-200)) !important;
+
+	border: none !important;
+}
+
+.card-is-failed {
+	box-shadow: 0 1px 1px hsl(var(--color-danger-50)), 0 0 0 hsl(var(--color-danger-50)),
+		inset 0 0.5px 0 0.5px hsl(var(--color-danger-100)),
+		inset 0 -3px 0 -2px hsl(var(--color-danger-100)), 0 0 15px hsl(var(--color-danger-50)) !important;
+
+	border: none !important;
+}
+
+.theme-dark .card-is-pending {
+	box-shadow: 0 1px 1px hsl(var(--color-warning-200)), 0 0 0 hsl(var(--color-warning-200)),
+		inset 0 0.5px 0 0.5px hsl(var(--color-warning-120)),
+		inset 0 -3px 0 -2px hsl(var(--color-warning-120)), 0 0 15px hsl(var(--color-warning-200)) !important;
+
+	border: none !important;
+}
+
+.card-is-pending {
+	box-shadow: 0 1px 1px hsl(var(--color-warning-50)), 0 0 0 hsl(var(--color-warning-50)),
+		inset 0 0.5px 0 0.5px hsl(var(--color-warning-100)),
+		inset 0 -3px 0 -2px hsl(var(--color-warning-100)), 0 0 15px hsl(var(--color-warning-50)) !important;
+
+	border: none !important;
+}
+
+.theme-dark .card-is-complete {
+	box-shadow: 0 1px 1px hsl(var(--color-success-200)), 0 0 0 hsl(var(--color-success-200)),
+		inset 0 0.5px 0 0.5px hsl(var(--color-success-120)),
+		inset 0 -3px 0 -2px hsl(var(--color-success-120)), 0 0 15px hsl(var(--color-success-200)) !important;
+
+	border: none !important;
+}
+
+.card-is-complete {
+	box-shadow: 0 1px 1px hsl(var(--color-success-50)), 0 0 0 hsl(var(--color-success-50)),
+		inset 0 0.5px 0 0.5px hsl(var(--color-success-100)),
+		inset 0 -3px 0 -2px hsl(var(--color-success-100)), 0 0 15px hsl(var(--color-success-50)) !important;
+
+	border: none !important;
+}

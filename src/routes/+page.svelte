@@ -1,17 +1,61 @@
+<script lang="ts">
+	import { browser } from '$app/environment';
+	import Card from './Card.svelte';
+
+	import type { PageData } from './$types';
+	import { AppwriteService } from '$lib/AppwriteService';
+
+	export let data: PageData;
+
+	let modalMessage = '';
+	let modalType = '';
+	const dialog: any = browser ? document.getElementById('dialog') : null;
+
+	async function onCreateSession() {
+		try {
+			const res = await fetch('/login', {
+				method: 'POST',
+				body: ''
+			});
+
+			modalType = 'success';
+			modalMessage =
+				'Session created! Refresh page to run SSR check, or re-fetch to run CSR cehck.';
+			dialog.showModal();
+		} catch (err: any) {
+			modalType = 'error';
+			modalMessage = err.message;
+			dialog.showModal();
+		}
+	}
+
+	async function onDeleteSession() {
+		try {
+			await AppwriteService.signOut();
+
+			modalType = 'success';
+			modalMessage =
+				'Session deleted! Refresh page to run SSR check, or re-fetch to run CSR cehck.';
+			dialog.showModal();
+		} catch (err: any) {
+			modalType = 'error';
+			modalMessage = err.message;
+			dialog.showModal();
+		}
+	}
+</script>
+
 <main class="main-content">
-	<div class="top-cover u-padding-block-end-56 astro-DCNASTZX">
-		<div class="container astro-DCNASTZX">
-			<div class="u-flex u-gap-16 u-flex-justify-center u-margin-block-start-16 astro-DCNASTZX">
-				<h1 class="heading-level-3 astro-DCNASTZX">Appwrite Loves SSR</h1>
-				<code class="u-un-break-text astro-DCNASTZX" />
+	<div class="top-cover u-padding-block-end-56">
+		<div class="container">
+			<div class="u-flex u-gap-16 u-flex-justify-center u-margin-block-start-16">
+				<h1 class="heading-level-1">Appwrite Loves Svelte Kit</h1>
+				<code class="u-un-break-text" />
 			</div>
-			<p
-				class="body-text-1 u-normal u-margin-block-start-8 astro-DCNASTZX"
-				style="max-width: 56rem;"
-			>
-				This is a demo application. You can see authorized requests working both on client side, and
-				during pre-render. The whole process uses secure cookies, so this will only work if the
-				appwrite server is a subdomain of your frontend app.
+			<p class="body-text-1 u-normal u-margin-block-start-8" style="max-width: 50rem;">
+				This is demo application. Use button below to create account. Notice both server-side
+				rendering, and client-side requests are authorized. The whole process uses 1st party secure
+				cookies.
 			</p>
 		</div>
 	</div>
@@ -21,88 +65,78 @@
 			style="--grid-gap:2rem; --grid-item-size:24rem; --grid-item-size-small-screens:16rem;"
 		>
 			<li>
-				<div class="card">
-					<div class="grid-item-1">
-						<div class="grid-item-1-start-start">
-							<div class="eyebrow-heading-3">Server Side</div>
-							<h2 class="heading-level-6 u-margin-block-start-8">Signed.</h2>
-						</div>
-					</div>
-					<div class="grid-item-1-end-end">
-						<svg
-							style="color: hsl(var(--color-text-warning));"
-							width="10"
-							height="10"
-							viewBox="0 0 8 8"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<circle cx="4" cy="4" r="4" fill="currentColor" />
-						</svg>
-					</div>
-				</div>
+				<Card isCsr={false} account={data.account} />
 			</li>
 			<li>
-				<div class="card">
-					<div class="grid-item-1">
-						<div class="grid-item-1-start-start">
-							<div class="eyebrow-heading-3">Client Side</div>
-							<h2 class="heading-level-6 u-margin-block-start-8">Signed.</h2>
-						</div>
-						<div class="grid-item-1-start-end">
-							<div class="status">
-								<button class="tag">
-									<span class="text">Fetch</span>
-								</button>
-							</div>
-						</div>
-					</div>
-					<div class="grid-item-1-end-end">
-						<svg
-							style="color: hsl(var(--color-text-danger));"
-							width="10"
-							height="10"
-							viewBox="0 0 8 8"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<circle cx="4" cy="4" r="4" fill="currentColor" />
-						</svg>
-					</div>
-				</div>
+				<Card isCsr={true} />
 			</li>
 		</ul>
 	</div>
-	<!-- <div class="container">
-		<div class="card">
-			<h2 id="states-colors" class="heading-level-7 pink-heading-2 astro-XFJI5RRG">
-				<a href="#states-colors" class="astro-XFJI5RRG"> States Colors </a>
-			</h2>
-		</div>
-	</div> -->
-
 	<div class="container">
-		<article
-			class="card u-grid u-cross-center u-width-full-line common-section"
-			style="
+		<div class="gradient-border">
+			<article
+				class="card u-grid u-cross-center u-width-full-line common-section"
+				style="
     background: linear-gradient(180deg, hsl(var(--p-card-bg-color)) 0%, hsl(var(--p-card-bg-color)) 12%, hsl(var(--p-body-bg-color)) 100%);
     border: none;
 "
-		>
-			<div
-				class="u-flex u-flex-vertical u-cross-center u-gap-32 u-margin-block-start-40 u-padding-block-end-56"
 			>
-				<div class="u-text-center">
-					<h2 class="heading-level-3 u-trim-1">Manage Authorization</h2>
-					<p class="body-text-2 u-bold u-margin-block-start-8">
-						Create an account to make authorization requests.
-					</p>
+				<div
+					class="u-flex u-flex-vertical u-cross-center u-gap-32 u-margin-block-start-40 u-padding-block-end-56"
+				>
+					<div class="u-text-center">
+						<h2 class="heading-level-3 u-trim-1">Manage Authorization</h2>
+						<p class="body-text-2 u-bold u-margin-block-start-8">
+							This component is not aware of auth status.
+						</p>
+					</div>
+					<div class="u-flex u-gap-16 u-main-center">
+						<form on:submit|preventDefault={onCreateSession}>
+							<button class="button" type="submit">Create Anonymous Account</button>
+						</form>
+
+						<form on:submit|preventDefault={onDeleteSession}>
+							<button class="button is-secondary" type="submit">Sign Out</button>
+						</form>
+					</div>
 				</div>
-				<div class="u-flex u-gap-16 u-main-center">
-					<button class="button" type="button">Create Anonymous Account</button>
-				</div>
-			</div>
-		</article>
+			</article>
+		</div>
 		<div class="u-margin-block-end-50" />
 	</div>
 </main>
+
+<div>
+	<dialog class="modal is-small" id="dialog">
+		<form class="modal-form" method="dialog">
+			<header class="modal-header u-flex u-gap-12 u-cross-center" style="flex-direction: row;">
+				{#if modalType === 'error'}
+					<div class="avatar is-color-orange is-medium">
+						<span class="icon-exclamation" aria-hidden="true" />
+					</div>
+					<h4 class="modal-title heading-level-5">Error 🚨</h4>
+				{:else}
+					<div class="avatar is-color-green is-medium">
+						<span class="icon-check" aria-hidden="true" />
+					</div>
+					<h4 class="modal-title heading-level-5">Success 🎉</h4>
+				{/if}
+			</header>
+			<div class="modal-content u-small">{modalMessage}</div>
+			<div class="modal-footer">
+				<div class="u-flex u-main-end u-gap-16">
+					<button
+						on:click={() => {
+							modalMessage = '';
+							modalType = '';
+							dialog.close();
+						}}
+						class="button is-secondary"
+					>
+						<span class="text">Close</span>
+					</button>
+				</div>
+			</div>
+		</form>
+	</dialog>
+</div>

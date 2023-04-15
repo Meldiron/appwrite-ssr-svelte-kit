@@ -7,11 +7,14 @@
 
 	export let data: PageData;
 
+	let isLoading = false;
+
 	let modalMessage = '';
 	let modalType = '';
 	const dialog: any = browser ? document.getElementById('dialog') : null;
 
 	async function onCreateSession() {
+		isLoading = true;
 		try {
 			const res = await fetch('/login', {
 				method: 'POST',
@@ -26,10 +29,13 @@
 			modalType = 'error';
 			modalMessage = err.message;
 			dialog.showModal();
+		} finally {
+			isLoading = false;
 		}
 	}
 
 	async function onDeleteSession() {
+		isLoading = true;
 		try {
 			await AppwriteService.signOut();
 
@@ -41,6 +47,8 @@
 			modalType = 'error';
 			modalMessage = err.message;
 			dialog.showModal();
+		} finally {
+			isLoading = false;
 		}
 	}
 </script>
@@ -91,13 +99,17 @@
 						</p>
 					</div>
 					<div class="u-flex u-gap-16 u-main-center">
-						<form on:submit|preventDefault={onCreateSession}>
-							<button class="button" type="submit">Create Anonymous Account</button>
-						</form>
+						{#if isLoading}
+							<div class="loader" />
+						{:else}
+							<form on:submit|preventDefault={onCreateSession}>
+								<button class="button" type="submit">Create Anonymous Account</button>
+							</form>
 
-						<form on:submit|preventDefault={onDeleteSession}>
-							<button class="button is-secondary" type="submit">Sign Out</button>
-						</form>
+							<form on:submit|preventDefault={onDeleteSession}>
+								<button class="button is-secondary" type="submit">Sign Out</button>
+							</form>
+						{/if}
 					</div>
 				</div>
 			</article>

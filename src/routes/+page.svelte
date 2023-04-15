@@ -93,7 +93,7 @@
 					class="u-flex u-flex-vertical u-cross-center u-gap-32 u-margin-block-start-40 u-padding-block-end-56"
 				>
 					<div class="u-text-center">
-						<h2 class="heading-level-3 u-trim-1">Manage Authorization</h2>
+						<h2 class="heading-level-3">Manage Authorization</h2>
 						<p class="body-text-2 u-bold u-margin-block-start-8">
 							This component is not aware of auth status.
 						</p>

@@ -222,5 +222,5 @@
 			</div>
 		</div>
 	</aside>
-	<main class="main-content"><slot /></main>
+	<slot />
 </div>

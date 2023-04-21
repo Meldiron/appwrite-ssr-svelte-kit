@@ -21,6 +21,7 @@ This makes server-side rendering work, but now client-side rendering is broken. 
 - [Appwrite](https://appwrite.io/)
 - [Svelte Kit](https://kit.svelte.dev/)
 - [Pink Design](https://pink.appwrite.io/)
+- [TypeScript](https://www.typescriptlang.org/)
 
 ## 🛠️ Setup Server
 

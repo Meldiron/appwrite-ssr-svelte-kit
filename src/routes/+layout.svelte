@@ -135,7 +135,7 @@
 						</li>
 						 <li class="drop-list-item">
                     <a
-                      class="drop-button u-cross-center is-selected"
+                      class="drop-button u-cross-center"
                       href="https://qwik.ssr.almostapps.eu/"
                     >
                       <svg
